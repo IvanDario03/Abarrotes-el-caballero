@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../backend/controllers/auth.php';
 
 /**
- * 🔐 ACCESO PERMITIDO
+ * ACCESO PERMITIDO
  * Admin y Cajero pueden entrar
  */
 if (!in_array($_SESSION['rol'] ?? '', ['admin', 'cajero'])) {
@@ -20,7 +20,7 @@ include __DIR__ . '/../../views/layout/header.php';
 $categorias = $pdo->query("SELECT * FROM categorias WHERE estado = 1")->fetchAll(PDO::FETCH_ASSOC);
 
 /**
- * ✅ FILTRO POR ESTADO
+ ** FILTRO POR ESTADO
  * - activos (default): estado = 1
  * - eliminados: estado = 0 (solo admin)
  * - todos: sin filtro (solo admin)
@@ -160,7 +160,7 @@ if ($edit_id !== '') {
       <div class="px-4 py-3 border-b font-semibold flex items-center justify-between">
         <span>Listado de productos</span>
 
-        <!-- ✅ BOTONES DE FILTRO -->
+        <!-- BOTONES DE FILTRO -->
         <div class="flex gap-2 text-sm">
           <a href="productos.php?filtro=activos"
              class="px-3 py-1 rounded border <?php echo $filtro==='activos' ? 'bg-green-700 text-white' : ''; ?>">
