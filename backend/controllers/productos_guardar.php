@@ -12,7 +12,7 @@ if ($id !== '' && $rol !== 'admin') {
 
 try {
 
-    // 📦 Datos
+    //  Datos
     $codigo        = trim($_POST['codigo_barras'] ?? '');
     $nombre        = trim($_POST['nombre'] ?? '');
     $descripcion   = trim($_POST['descripcion'] ?? '');
@@ -22,7 +22,7 @@ try {
     $id_categoria  = $_POST['id_categoria'] !== '' ? intval($_POST['id_categoria']) : null;
     $ruta_imagen   = null;
 
-    // 🖼️ SUBIDA DE IMAGEN (ROBUSTA)
+    //  SUBIDA DE IMAGEN (ROBUSTA)
     if (
         isset($_FILES['ruta_imagen']) &&
         $_FILES['ruta_imagen']['error'] === UPLOAD_ERR_OK
@@ -52,7 +52,7 @@ try {
         $ruta_imagen = $nombreArchivo;
     }
 
-    // 🟢 INSERT
+    //  INSERT
     if ($id === '') {
 
         $sql = "INSERT INTO productos
@@ -63,7 +63,7 @@ try {
         $stmt = $pdo->prepare($sql);
 
     } 
-    // 🔵 UPDATE
+    //  UPDATE
     else {
 
         if ($ruta_imagen !== null) {
@@ -93,7 +93,7 @@ try {
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     }
 
-    // 🔗 BINDS
+    //  BINDS
     $stmt->bindValue(':codigo', $codigo);
     $stmt->bindValue(':nombre', $nombre);
     $stmt->bindValue(':descripcion', $descripcion);
