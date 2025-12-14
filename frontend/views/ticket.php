@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../backend/controllers/auth.php';
 require_once __DIR__ . '/../../backend/controllers/config.php';
 
 /**
- * 🔐 OBTENER ID DE VENTA DESDE SESIÓN
+ * OBTENER ID DE VENTA DESDE SESIÓN
  * (ya no desde la URL)
  */
 $venta_id = intval($_SESSION['venta_ticket_id'] ?? 0);
@@ -33,7 +33,7 @@ if (!$venta) {
 }
 
 /**
- * 🔐 VALIDACIÓN EXTRA DE SEGURIDAD
+ * VALIDACIÓN EXTRA DE SEGURIDAD
  * El cajero solo puede ver sus propios tickets
  * El admin puede ver todos
  */
