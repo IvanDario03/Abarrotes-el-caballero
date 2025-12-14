@@ -3,17 +3,17 @@ require_once __DIR__ . '/../../backend/controllers/auth.php';
 require_once __DIR__ . '/../../backend/controllers/config.php';
 include __DIR__ . '/../../views/layout/header.php';
 
-// Obtener productos activos
+// Obtener productos activos desde la base de datos
 $sql = "SELECT * FROM productos WHERE estado = 1 ORDER BY nombre ASC";
 $productos = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
-// Rol
+// Rol del usuario actual
 $rol = $_SESSION['rol'] ?? '';
 ?>
 
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-  <!-- PRODUCTOS -->
+  <!-- PRODUCTOS  -->
   <div class="lg:col-span-7">
     <div class="bg-white rounded-xl shadow h-full flex flex-col">
       
