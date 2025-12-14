@@ -20,7 +20,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($user) {
     $_SESSION['user_id']   = $user['id'];
     $_SESSION['user_name'] = $user['nombre'];
-    $_SESSION['rol']       = $user['rol']; // 👈 CLAVE
+    $_SESSION['rol']       = $user['rol']; 
     header("Location: ../../frontend/views/pos.php");
     exit;
 } else {
