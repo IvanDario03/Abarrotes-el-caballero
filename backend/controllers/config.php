@@ -1,5 +1,5 @@
 <?php
-// Configuración de conexión a la base de datos
+// Configuración de conexión a la base de datos para Abarrotes El Caballero
 $host = 'localhost';
 $db   = 'abarrotes_penaloza';
 $user = 'root';

@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/auth.php';
 require __DIR__ . '/config.php';
-
+// solo el admin puede crear usuarios dentro del sistema
 if (($_SESSION['rol'] ?? '') !== 'admin') {
     http_response_code(403);
     die("Acceso no autorizado");
@@ -25,7 +25,7 @@ $stmt = $pdo->prepare(
 $stmt->execute([
     ':nombre'   => $nombre,
     ':email'    => $email,
-    ':password' => $password, // (en texto plano, consistente con tu sistema)
+    ':password' => $password,
     ':rol'      => $rol
 ]);
 

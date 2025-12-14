@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/auth.php';
 require __DIR__ . '/config.php';
-
+// solo el admin puede restaurar el producto
 if (($_SESSION['rol'] ?? '') !== 'admin') {
     http_response_code(403);
     die("Acceso no autorizado");
