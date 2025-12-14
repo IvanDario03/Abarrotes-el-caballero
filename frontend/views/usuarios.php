@@ -9,7 +9,7 @@ if (($_SESSION['rol'] ?? '') !== 'admin') {
 require_once __DIR__ . '/../../backend/controllers/config.php';
 include __DIR__ . '/../../views/layout/header.php';
 
-// Obtener usuarios
+// Obtener usuarios desde la base de datos
 $usuarios = $pdo->query("SELECT id, nombre, email, rol, creado_en FROM users ORDER BY nombre ASC")
                 ->fetchAll(PDO::FETCH_ASSOC);
 ?>
