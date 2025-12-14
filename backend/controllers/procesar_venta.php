@@ -2,7 +2,7 @@
 require __DIR__ . '/auth.php';
 require __DIR__ . '/config.php';
 
-// 📦 Datos recibidos
+//  Datos recibidos
 $cart_json   = $_POST['cart_json'] ?? '[]';
 $total       = floatval($_POST['total'] ?? 0);
 $metodo_pago = $_POST['metodo_pago'] ?? 'efectivo';
@@ -15,7 +15,7 @@ if (!is_array($cart) || count($cart) === 0) {
 
 $usuario_id = $_SESSION['user_id'] ?? null;
 
-// 🔐 Métodos permitidos
+//  Métodos permitidos
 $metodos_validos = ['efectivo', 'tarjeta', 'paypal'];
 if (!in_array($metodo_pago, $metodos_validos)) {
     $metodo_pago = 'efectivo';
@@ -24,7 +24,7 @@ if (!in_array($metodo_pago, $metodos_validos)) {
 try {
     $pdo->beginTransaction();
 
-    // 🧾 Insertar venta
+    //  Insertar venta
     $stmtVenta = $pdo->prepare(
         "INSERT INTO ventas (total, usuario_id, metodo_pago)
          VALUES (:total, :usuario_id, :metodo_pago)"
@@ -38,7 +38,7 @@ try {
 
     $venta_id = $pdo->lastInsertId();
 
-    // 🧾 Insertar detalle
+    //  Insertar detalle
     $stmtDetalle = $pdo->prepare(
         "INSERT INTO venta_detalle
          (venta_id, producto_id, cantidad, precio_unitario, subtotal)
@@ -50,12 +50,12 @@ try {
         "SELECT stock, estado FROM productos WHERE id = :id FOR UPDATE"
     );
 
-    // 📉 Descontar stock
+    //  Descontar stock
     $stmtDescontarStock = $pdo->prepare(
         "UPDATE productos SET stock = stock - :cantidad WHERE id = :id"
     );
 
-    // 🚫 Desactivar producto
+    //  Desactivar producto
     $stmtDesactivarProducto = $pdo->prepare(
         "UPDATE productos SET estado = 0 WHERE id = :id"
     );
@@ -67,7 +67,7 @@ try {
         $precio      = floatval($item['precio']);
         $subtotal    = $cantidad * $precio;
 
-        // 🔍 Verificar producto
+        //  Verificar producto
         $stmtProducto->execute([':id' => $producto_id]);
         $producto = $stmtProducto->fetch(PDO::FETCH_ASSOC);
 
@@ -79,7 +79,7 @@ try {
             throw new Exception("Stock insuficiente");
         }
 
-        // 🧾 Guardar detalle
+        //  Guardar detalle
         $stmtDetalle->execute([
             ':venta_id'        => $venta_id,
             ':producto_id'     => $producto_id,
@@ -88,13 +88,13 @@ try {
             ':subtotal'        => $subtotal
         ]);
 
-        // 📉 Descontar stock
+        //  Descontar stock
         $stmtDescontarStock->execute([
             ':cantidad' => $cantidad,
             ':id'       => $producto_id
         ]);
 
-        // 🚫 Desactivar si se agotó
+        //  Desactivar si se agotó
         if (($producto['stock'] - $cantidad) <= 0) {
             $stmtDesactivarProducto->execute([':id' => $producto_id]);
         }
@@ -102,7 +102,7 @@ try {
 
     $pdo->commit();
 
-    // 🔐 Ticket por sesión
+    //  Ticket por sesión
     $_SESSION['venta_ticket_id'] = $venta_id;
 
     header("Location: ../../frontend/views/ticket.php");
