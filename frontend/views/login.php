@@ -1,12 +1,14 @@
 <?php
 session_start();
 
-// Si ya hay sesión iniciada, mandar al POS
+$BASE_URL = "/Abarrotes-el-caballero";
+
 if (!empty($_SESSION['user_id'])) {
-    header("Location: /abarrotes/frontend/views/pos.php");
+    header("Location: $BASE_URL/frontend/views/pos.php");
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,7 +40,7 @@ if (!empty($_SESSION['user_id'])) {
       <?php endif; ?>
 
       <!-- FORMULARIO -->
-      <form action="/abarrotes/backend/controllers/login_process.php" method="post" class="space-y-4">
+      <form action="<?= $BASE_URL ?>/backend/controllers/login_process.php" method="post"> 
 
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">

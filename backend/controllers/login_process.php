@@ -1,30 +1,48 @@
 <?php
 session_start();
-require __DIR__ . '/config.php';
 
+/* BASE DEL PROYECTO */
+$BASE_URL = "/Abarrotes-el-caballero";
+
+/* CONEXIÓN A LA BASE DE DATOS */
+require_once __DIR__ . '/../controllers/config.php';
+
+/* OBTENER DATOS DEL FORMULARIO */
 $email = trim($_POST['email'] ?? '');
 $password = trim($_POST['password'] ?? '');
 
+/* VALIDAR CAMPOS VACÍOS */
 if ($email === '' || $password === '') {
-    header("Location: ../../frontend/views/login.php?error=1");
+    header("Location: $BASE_URL/frontend/views/login.php?error=1");
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email AND password = :password LIMIT 1");
+/* CONSULTA DEL USUARIO */
+$stmt = $pdo->prepare("
+    SELECT id, nombre, rol, password 
+    FROM users 
+    WHERE email = :email 
+    LIMIT 1
+");
 $stmt->execute([
-    ':email' => $email,
-    ':password' => $password
+    ':email' => $email
 ]);
+
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($user) {
+/* VALIDAR USUARIO Y CONTRASEÑA */
+if ($user && $password === $user['password']) {
+
     $_SESSION['user_id']   = $user['id'];
     $_SESSION['user_name'] = $user['nombre'];
-    $_SESSION['rol']       = $user['rol']; 
-    header("Location: ../../frontend/views/pos.php");
+    $_SESSION['rol']       = $user['rol'];
+
+    header("Location: $BASE_URL/frontend/views/pos.php");
     exit;
+
 } else {
-    header("Location: ../../frontend/views/login.php?error=1");
+    header("Location: $BASE_URL/frontend/views/login.php?error=1");
     exit;
 }
+
 
