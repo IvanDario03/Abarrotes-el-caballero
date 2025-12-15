@@ -3,7 +3,7 @@ session_start();
 
 // Si ya hay sesión iniciada, mandar al POS
 if (!empty($_SESSION['user_id'])) {
-    header("Location: /abarrotes/frontend/views/pos.php");
+    header("Location: /Abarrotes-el-caballero/frontend/views/pos.php");
     exit;
 }
 ?>
@@ -25,7 +25,7 @@ if (!empty($_SESSION['user_id'])) {
     <!-- Header -->
     <div class="bg-green-700 text-white text-center py-5">
       <h1 class="text-xl font-bold">Abarrotes El Caballero</h1>
-      <p class="text-sm opacity-90">Acceso al sistema </p>
+      <p class="text-sm opacity-90">Acceso al sistema</p>
     </div>
 
     <!-- Body -->
@@ -38,7 +38,11 @@ if (!empty($_SESSION['user_id'])) {
       <?php endif; ?>
 
       <!-- FORMULARIO -->
-      <form action="/abarrotes/backend/controllers/login_process.php" method="post" class="space-y-4">
+      <form
+        action="/Abarrotes-el-caballero/backend/controllers/login_process.php"
+        method="post"
+        class="space-y-4"
+      >
 
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
