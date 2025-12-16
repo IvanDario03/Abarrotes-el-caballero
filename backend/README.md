@@ -49,3 +49,10 @@ El control de acceso se valida desde el archivo `auth.php`.
 
 ## Estado del backend
 El backend se encuentra completamente funcional 
+
+##  Autores 
+**Fuentes Martinez Ivan Dario** 
+**Hernandez Peñaloza Jose Jesus** 
+**Monjaraz Cruz Lesly Gudalupe**
+ Ingeniería en Informática 
+ Tecnológico de Estudios Superiores de Ixtapaluca
